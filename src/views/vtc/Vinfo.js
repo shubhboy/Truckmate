@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Collapse, Typography, IconButton } from '@mui/material';
-import { ChevronUp, ChevronDown, Map } from 'mdi-material-ui';
+import { ChevronUp, ChevronDown, MessageProcessingOutline } from 'mdi-material-ui';
 
-const ConvoyTable = ({ convoys, title }) => {
+const VtcTable = ({ vtcs, title }) => {
     const [openRow, setOpenRow] = useState(null);
 
     const handleRowClick = (index) => {
         setOpenRow(openRow === index ? null : index);
     };
 
-    const openMap = (mapUrl) => {
-        window.open(mapUrl, '_blank');
+    const openDiscord = (discordUrl) => {
+        window.open(discordUrl, '_blank');
     };
 
     return (
@@ -23,16 +23,15 @@ const ConvoyTable = ({ convoys, title }) => {
                     <TableHead>
                         <TableRow>
                             <TableCell />
-                            <TableCell>Convoy Name</TableCell>
-                            <TableCell align='center'>Game</TableCell>
-                            <TableCell align='center'>Server</TableCell>
-                            <TableCell align='center'>Depature City</TableCell>
-                            <TableCell align='center'>Arrival City</TableCell>
-                            <TableCell align='center'>Map</TableCell>
+                            <TableCell>VTC Name</TableCell>
+                            <TableCell align='center'>Owner</TableCell>
+                            <TableCell align='center'>Slogan</TableCell>
+                            <TableCell align='center'>Member Count</TableCell>
+                            <TableCell align='center'>Discord</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {convoys && convoys.map((convoy, index) => (
+                        {vtcs && vtcs.map((vtc, index) => (
                             <React.Fragment key={index}>
                                 <TableRow onClick={() => handleRowClick(index)}>
                                     <TableCell>
@@ -40,14 +39,13 @@ const ConvoyTable = ({ convoys, title }) => {
                                             {openRow === index ? <ChevronUp /> : <ChevronDown />}
                                         </IconButton>
                                     </TableCell>
-                                    <TableCell>{convoy.name}</TableCell>
-                                    <TableCell align='center'>{convoy.game}</TableCell>
-                                    <TableCell align='center'>{convoy.server.name}</TableCell>
-                                    <TableCell align='center'>{convoy.departure.city}</TableCell>
-                                    <TableCell align='center'>{convoy.arrive.city}</TableCell>
+                                    <TableCell>{vtc.name}</TableCell>
+                                    <TableCell align='center'>{vtc.owner_username}</TableCell>
+                                    <TableCell align='center'>{vtc.slogan}</TableCell>
+                                    <TableCell align='center'>{vtc.members_count}</TableCell>
                                     <TableCell align='center'>
-                                        <IconButton aria-label='open map' size='small' onClick={() => openMap(convoy.map)}>
-                                            <Map />
+                                        <IconButton aria-label='open discord' size='small' onClick={() => openDiscord(vtc.socials.discord)}>
+                                            <MessageProcessingOutline />
                                         </IconButton>
                                     </TableCell>
                                 </TableRow>
@@ -60,11 +58,10 @@ const ConvoyTable = ({ convoys, title }) => {
                                                 </Typography>
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align='center'>VTC Name: {convoy.vtc.name}</TableCell>
-                                                        <TableCell align='center'>Confirmed Attendances: {convoy.attendances.confirmed}</TableCell>
-                                                        <TableCell align='center'>Unsure Attendances: {convoy.attendances.unsure}</TableCell>
-                                                        <TableCell algin='center'>VTCS: {convoy.attendances.vtcs}</TableCell>
-                                                        <TableCell align='center'>Required DLC: {convoy.dlcs.dlc_id}</TableCell>
+                                                        <TableCell align='center'>Recruitment: {vtc.recruitment}</TableCell>
+                                                        <TableCell align='center'>Language: {vtc.language}</TableCell>
+                                                        <TableCell align='center'>Verified: {vtc.verified ? 'Yes' : 'No'}</TableCell>
+                                                        <TableCell align='center'>Created: {vtc.created}</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                             </Box>
@@ -80,36 +77,34 @@ const ConvoyTable = ({ convoys, title }) => {
     );
 };
 
-const Einfo = () => {
-    const [featuredConvoys, setFeaturedConvoys] = useState([]);
-    const [todayConvoys, setTodayConvoys] = useState([]);
-    const [nowConvoys, setNowConvoys] = useState([]);
-    const [upcomingConvoys, setUpcomingConvoys] = useState([]);
+const Vinfo = () => {
+    const [recentVtc, setRecentVtc] = useState([]);
+    const [featuredVtc, setFeaturedVtc] = useState([]);
+    const [featuredCoverVtc, setFeaturedCoverVtc] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://api.truckersmp.com/v2/events');
+                const response = await fetch('https://api.truckersmp.com/v2/vtc');
                 const data = await response.json();
-                setFeaturedConvoys(data.response.featured);
-                setTodayConvoys(data.response.today);
-                setNowConvoys(data.response.now);
-                setUpcomingConvoys(data.response.upcoming);
+                setRecentVtc(data.response.recent);
+                setFeaturedVtc(data.response.featured);
+                setFeaturedCoverVtc(data.response.featured_cover);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
+
         fetchData();
     }, []);
 
     return (
         <div>
-            <ConvoyTable convoys={featuredConvoys} title="Featured Convoys" />
-            <ConvoyTable convoys={todayConvoys} title="Today's Convoys" />
-            <ConvoyTable convoys={nowConvoys} title="Now Convoys" />
-            <ConvoyTable convoys={upcomingConvoys} title="Upcoming Convoys" />
+            <VtcTable vtcs={recentVtc} title="Recent VTC" />
+            <VtcTable vtcs={featuredVtc} title="Featured VTC" />
+            <VtcTable vtcs={featuredCoverVtc} title="Featured Cover VTC" />
         </div>
     );
 };
 
-export default Einfo;
+export default Vinfo;
