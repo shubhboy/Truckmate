@@ -1,20 +1,13 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Avatar from '@mui/material/Avatar'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import Divider from '@mui/material/Divider'
+import { Box, Card, Avatar, CardMedia, Typography, CardContent, Divider, Grid } from '@mui/material';
+
 import { styled } from '@mui/material/styles'
-import Grid from '@mui/material/Grid'
+
 
 
 // ** Icons Imports
-import TrendingUp from 'mdi-material-ui/TrendingUp'
-import StarOutline from 'mdi-material-ui/StarOutline'
-import LockOpenOutline from 'mdi-material-ui/LockOpenOutline'
-import CalendarAccountOutline from 'mdi-material-ui/CalendarAccountOutline'
+import { TrendingUp, StarOutline, LockOpenOutline, CalendarAccountOutline } from 'mdi-material-ui';
+
 
 
 // Styled Box component
@@ -133,7 +126,7 @@ const CardUser = ({ playerData }) => {
                 </Box>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <TrendingUp sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
-                  <Typography variant='body2'>VTC Member : Yes</Typography>
+                  <Typography variant='body2'>VTC Member : {data.vtc.inVTC ? 'Yes' : 'No'}</Typography>
                 </Box>
               </Grid>
             </Grid>

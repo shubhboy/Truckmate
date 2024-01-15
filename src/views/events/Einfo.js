@@ -89,12 +89,12 @@ const Einfo = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://api.truckersmp.com/v2/events');
+                const response = await fetch('/api/eventsapi');
                 const data = await response.json();
-                setFeaturedConvoys(data.response.featured);
-                setTodayConvoys(data.response.today);
-                setNowConvoys(data.response.now);
-                setUpcomingConvoys(data.response.upcoming);
+                setFeaturedConvoys(data.featured);
+                setTodayConvoys(data.today);
+                setNowConvoys(data.now);
+                setUpcomingConvoys(data.upcoming);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

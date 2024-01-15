@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import Grid from '@mui/material/Grid'
-import CardHeader from '@mui/material/CardHeader'
-import Card from '@mui/material/Card'
+import { Grid, CardHeader, Card } from '@mui/material';
+
 
 // ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
@@ -22,12 +21,12 @@ const EventsStat = () => {
   useEffect(() => {
     const fetchEventsData = async () => {
       try {
-        const response = await fetch('https://api.truckersmp.com/v2/events/');
+        const response = await fetch('/api/eventsapi');
         const jsonResponse = await response.json();
 
         // Check if the 'response' property exists in the JSON response
-        if (jsonResponse && jsonResponse.response) {
-          const { featured, today, now, upcoming } = jsonResponse.response;
+        if (jsonResponse && response) {
+          const { featured, today, now, upcoming } = response;
           setEventData({
             featured: featured.length,
             today: today.length,
@@ -49,9 +48,9 @@ const EventsStat = () => {
   return (
     <ApexChartWrapper>
       <Grid container spacing={6}>
-        <Grid item xs={12} md={12} lg={12}>
+        {/*<Grid item xs={12} md={12} lg={12}>
           <Events eventData={eventData} />
-        </Grid>
+  </Grid> */}
         <Grid item xs={12}>
           <Card>
             <CardHeader title='Convoy / Events info' titleTypographyProps={{ variant: 'h6' }} />

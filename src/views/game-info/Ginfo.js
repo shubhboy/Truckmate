@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
-
-// ** MUI Imports
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import Typography from '@mui/material/Typography'
-import CardHeader from '@mui/material/CardHeader'
-import CardContent from '@mui/material/CardContent'
-
-
+import { Box, Card, Typography, CardHeader, CardContent } from '@mui/material';
 
 const Ginfo = () => {
   const [supportedVersions, setSupportedVersions] = useState(null);
 
   useEffect(() => {
-    fetch('https://api.truckersmp.com/v2/version')
-      .then(response => response.json())
-      .then(data => setSupportedVersions(data));
+    fetch('/api/ginfoapi')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        return response.json();
+      })
+      .then(data => {
+        // Update the state with the received data
+        setSupportedVersions({
+          supported_game_version: data.supported_game_version,
+          supported_ats_game_version: data.supported_ats_game_version
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching supported game versions:', error);
+      });
   }, []);
 
   return (

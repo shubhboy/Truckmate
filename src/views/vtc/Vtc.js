@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import Avatar from '@mui/material/Avatar';
-import CardHeader from '@mui/material/CardHeader';
-import Typography from '@mui/material/Typography';
-import CardContent from '@mui/material/CardContent';
-import History from 'mdi-material-ui/History';
-import CellphoneLink from 'mdi-material-ui/CellphoneLink';
-import StarCircleOutline from 'mdi-material-ui/StarCircleOutline';
+import { Box, Grid, Card, Avatar, CardHeader, Typography, CardContent } from '@mui/material';
+
+//* Icon import
+import { History, CellphoneLink, StarCircleOutline } from 'mdi-material-ui';
+
 
 const VtcStat = () => {
   const [vtcData, setVtcData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('https://api.truckersmp.com/v2/vtc');
+      const response = await fetch('/api/vtcapi');
       const data = await response.json();
 
       if (data && data.featured && data.recent && data.featured_cover) {

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
+import { Grid, Typography, TextField, InputAdornment } from '@mui/material';
+
 
 // ** Demo Components Imports
 import CardUser from 'src/views/players/Players'
@@ -21,7 +19,7 @@ const CardBasic = () => {
 
   const fetchPlayerData = async () => {
     try {
-      const response = await fetch(`https://api.truckersmp.com/v2/player/${truckersMPId}`);
+      const response = await fetch(`/api/playerapi?truckersMPId=${truckersMPId}`);
       const data = await response.json();
       setPlayerData(data);
     } catch (error) {

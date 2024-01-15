@@ -85,11 +85,11 @@ const Vinfo = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('https://api.truckersmp.com/v2/vtc');
+                const response = await fetch('/api/vtcapi');
                 const data = await response.json();
-                setRecentVtc(data.response.recent);
-                setFeaturedVtc(data.response.featured);
-                setFeaturedCoverVtc(data.response.featured_cover);
+                setRecentVtc(data.recent);
+                setFeaturedVtc(data.featured);
+                setFeaturedCoverVtc(data.featured_cover);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
