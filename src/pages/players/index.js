@@ -27,7 +27,6 @@ const CardBasic = () => {
     }
   };
 
-  console.log(playerData);
 
   const handleSearch = () => {
     fetchPlayerData();
@@ -41,6 +40,7 @@ const CardBasic = () => {
       <Grid item xs={6} sx={{ paddingBottom: 4, alignItems: 'right' }}>
         <TextField
           value={truckersMPId}
+          placeholder='Serach by truckers mp id'
           onChange={handleInputChange}
           onKeyPress={(ev) => {
             if (ev.key === 'Enter') {

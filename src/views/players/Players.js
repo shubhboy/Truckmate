@@ -3,7 +3,7 @@ import { Box, Card, Avatar, CardMedia, Typography, CardContent, Divider, Grid } 
 
 import { styled } from '@mui/material/styles'
 
-
+import Alert from '@mui/material/Alert'
 
 // ** Icons Imports
 import { TrendingUp, StarOutline, LockOpenOutline, CalendarAccountOutline } from 'mdi-material-ui';
@@ -19,6 +19,11 @@ const StyledBox = styled(Box)(({ theme }) => ({
 
 const CardUser = ({ playerData }) => {
   const data = playerData.response;
+
+  if (!data) {
+
+    return <Alert variant="filled" severity="error">Player not Available</Alert>
+  }
 
   return (
     <Card sx={{ position: 'relative' }}>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Collapse, Typography, IconButton } from '@mui/material';
-import { ChevronUp, ChevronDown, MessageProcessingOutline } from 'mdi-material-ui';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Collapse, Typography, IconButton, CircularProgress } from '@mui/material';
+import { ChevronUp, ChevronDown, MessageProcessingOutline, CheckDecagram } from 'mdi-material-ui';
 
 const VtcTable = ({ vtcs, title }) => {
     const [openRow, setOpenRow] = useState(null);
@@ -39,7 +39,12 @@ const VtcTable = ({ vtcs, title }) => {
                                             {openRow === index ? <ChevronUp /> : <ChevronDown />}
                                         </IconButton>
                                     </TableCell>
-                                    <TableCell>{vtc.name}</TableCell>
+                                    <TableCell>
+                                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                                        <span>{vtc.name}</span>
+                                        {vtc.verified && <CheckDecagram style={{ fontSize: '17px', marginLeft: '5px', color: 'blue' }} />}
+                                    </div>
+                                    </TableCell>
                                     <TableCell align='center'>{vtc.owner_username}</TableCell>
                                     <TableCell align='center'>{vtc.slogan}</TableCell>
                                     <TableCell align='center'>{vtc.members_count}</TableCell>
@@ -58,10 +63,10 @@ const VtcTable = ({ vtcs, title }) => {
                                                 </Typography>
                                                 <TableHead>
                                                     <TableRow>
-                                                        <TableCell align='center'>Recruitment: {vtc.recruitment}</TableCell>
-                                                        <TableCell align='center'>Language: {vtc.language}</TableCell>
-                                                        <TableCell align='center'>Verified: {vtc.verified ? 'Yes' : 'No'}</TableCell>
-                                                        <TableCell align='center'>Created: {vtc.created}</TableCell>
+                                                        <TableCell align='center'>Recruitment : {vtc.recruitment}</TableCell>
+                                                        <TableCell align='center'>Language : {vtc.language}</TableCell>
+                                                        <TableCell align='center'>Verified : {vtc.verified ? 'Yes' : 'No'}</TableCell>
+                                                        <TableCell align='center'>Created : {vtc.created}</TableCell>
                                                     </TableRow>
                                                 </TableHead>
                                             </Box>
@@ -81,6 +86,7 @@ const Vinfo = () => {
     const [recentVtc, setRecentVtc] = useState([]);
     const [featuredVtc, setFeaturedVtc] = useState([]);
     const [featuredCoverVtc, setFeaturedCoverVtc] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -93,10 +99,21 @@ const Vinfo = () => {
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
+            finally {
+                setLoading(false);
+            }
         };
 
         fetchData();
     }, []);
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </div>
+        );
+    }
 
     return (
         <div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Collapse, Typography, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Collapse, Typography, IconButton, CircularProgress } from '@mui/material';
 import { ChevronUp, ChevronDown, Map } from 'mdi-material-ui';
 
 const ConvoyTable = ({ convoys, title }) => {
@@ -85,6 +85,7 @@ const Einfo = () => {
     const [todayConvoys, setTodayConvoys] = useState([]);
     const [nowConvoys, setNowConvoys] = useState([]);
     const [upcomingConvoys, setUpcomingConvoys] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,9 +99,20 @@ const Einfo = () => {
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
+            finally {
+                setLoading(false);
+            }
         };
         fetchData();
     }, []);
+
+    if (loading) {
+        return (
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+                <CircularProgress />
+            </div>
+        );
+    }
 
     return (
         <div>

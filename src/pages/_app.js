@@ -2,6 +2,7 @@
 import Head from 'next/head'
 import { Router } from 'next/router'
 
+
 // ** Loader Import
 import NProgress from 'nprogress'
 
@@ -10,6 +11,7 @@ import { CacheProvider } from '@emotion/react'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
 
 // ** Component Imports
 import UserLayout from 'src/layouts/UserLayout'
