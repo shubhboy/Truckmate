@@ -17,6 +17,7 @@ const StyledBox = styled(Box)(({ theme }) => ({
   }
 }))
 
+
 const CardUser = ({ playerData }) => {
   const data = playerData.response;
 
