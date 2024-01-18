@@ -13,6 +13,7 @@ const ConvoyTable = ({ convoys, title }) => {
         window.open(mapUrl, '_blank');
     };
 
+
     return (
         <div>
             <Typography variant='h6' align='center' gutterBottom component='div'>
@@ -32,7 +33,11 @@ const ConvoyTable = ({ convoys, title }) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {convoys && convoys.map((convoy, index) => (
+                        {convoys && convoys.map((convoy, index) => {
+                            const meetupDate = convoy.meetup_at ? new Date(convoy.meetup_at) : null;
+                            const formattedDate = meetupDate ? meetupDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: '2-digit' }) : 'NA';
+                            
+                            return (
                             <React.Fragment key={index}>
                                 <TableRow onClick={() => handleRowClick(index)}>
                                     <TableCell>
@@ -54,25 +59,37 @@ const ConvoyTable = ({ convoys, title }) => {
                                 <TableRow>
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                         <Collapse in={openRow === index} timeout='auto' unmountOnExit>
-                                            <Box margin={1}>
+                                            <Box margin={1} style={{ background: '#E5E4E6', margin: '10px', padding: '10px', borderRadius: '15px'}}>
                                                 <Typography variant='h6' gutterBottom component='div'>
                                                     More Info
                                                 </Typography>
                                                 <TableHead>
-                                                    <TableRow>
-                                                        <TableCell align='center'>VTC Name: {convoy.vtc.name}</TableCell>
-                                                        <TableCell align='center'>Confirmed Attendances: {convoy.attendances.confirmed}</TableCell>
-                                                        <TableCell align='center'>Unsure Attendances: {convoy.attendances.unsure}</TableCell>
-                                                        <TableCell algin='center'>VTCS: {convoy.attendances.vtcs}</TableCell>
-                                                        <TableCell align='center'>Required DLC: {convoy.dlcs.dlc_id}</TableCell>
-                                                    </TableRow>
+                                                <TableRow>
+                                                <TableCell align='center'>VTC Name</TableCell>
+                                                        <TableCell align='center'>Date</TableCell>
+                                                        <TableCell align='center'>Time</TableCell>
+                                                        <TableCell align='center'>Confirmed Attendances</TableCell>
+                                                        <TableCell align='center'>Unsure Attendances</TableCell>
+                                                        <TableCell align='center'>VTCS</TableCell>
+                                                </TableRow>
                                                 </TableHead>
+                                                <TableBody>
+                                                    <TableRow>
+                                                        <TableCell align='center'>{convoy.vtc.name}</TableCell>
+                                                        <TableCell align='center'>{formattedDate}</TableCell>
+                                                        <TableCell align='center'>{new Date(convoy.start_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</TableCell>
+                                                        <TableCell align='center'>{convoy.attendances.confirmed}</TableCell>
+                                                        <TableCell align='center'>{convoy.attendances.unsure}</TableCell>
+                                                        <TableCell align='center'>{convoy.attendances.vtcs}</TableCell>
+                                                    </TableRow>
+                                                    </TableBody>
                                             </Box>
                                         </Collapse>
                                     </TableCell>
                                 </TableRow>
                             </React.Fragment>
-                        ))}
+                            );
+                            })}
                     </TableBody>
                 </Table>
             </TableContainer>
