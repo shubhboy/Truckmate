@@ -121,7 +121,7 @@ const CardUser = ({ playerData }) => {
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <CalendarAccountOutline sx={{ color: 'primary.main', marginRight: 2.75 }} fontSize='small' />
-                    <Typography variant='body2'>Ban Until : {data.bannedUntil}</Typography>
+                    <Typography variant='body2'>Active Ban : {data.bansCount}</Typography>
                   </Box>
                 </StyledBox>
               </Grid>
