@@ -59,7 +59,7 @@ const ConvoyTable = ({ convoys, title }) => {
                                 <TableRow>
                                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
                                         <Collapse in={openRow === index} timeout='auto' unmountOnExit>
-                                            <Box margin={1} style={{ background: '#E5E4E6', margin: '10px', padding: '10px', borderRadius: '15px'}}>
+                                            <Box margin={1}>
                                                 <Typography variant='h6' gutterBottom component='div'>
                                                     More Info
                                                 </Typography>
