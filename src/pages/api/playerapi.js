@@ -3,10 +3,21 @@ import fetch from 'node-fetch';
 export default async function handler(req, res) {
   try {
     const { truckersMPId } = req.query;
+
+    // Log the truckersMPId
+    console.log("Received truckersMPId:", truckersMPId);
+
+    if (!truckersMPId) {
+      return res.status(400).json({ error: 'truckersMPId is required' });
+    }
+
     const response = await fetch(`https://api.truckersmp.com/v2/player/${truckersMPId}`);
+    console.log("TruckersMP API response status:", response.status);
+
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
+
     const data = await response.json();
 
     // Add CORS headers

@@ -98,8 +98,8 @@ const CardUser = ({ playerData }) => {
               {data.vtcHistory.map((vtc, index) => (
                 <Box key={index} sx={{ mb: 2 }}>
                   <Typography variant='subtitle1'>{vtc.name}</Typography>
-                  <Typography variant='body2'>Join Date: {vtc.joinDate}</Typography>
-                  <Typography variant='body2'>Left Date: {vtc.leftDate}</Typography>
+                  <Typography variant='body2'>Join Date: {new Date(vtc.joinDate).toLocaleDateString()}</Typography>
+                  <Typography variant='body2'>Left Date: {vtc.leftDate ? new Date(vtc.leftDate).toLocaleDateString() : 'N/A'}</Typography>
                 </Box>
               ))}
             </Box>
