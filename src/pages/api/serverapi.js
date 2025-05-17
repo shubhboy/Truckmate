@@ -1,5 +1,3 @@
-// pages/api/truckersmp.js
-
 export default async function handler(req, res) {
     try {
       const response = await fetch('https://api.truckersmp.com/v2/servers');
