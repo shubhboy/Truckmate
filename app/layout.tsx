@@ -4,7 +4,7 @@ import { useEffect, useState, useRef } from "react"
 import Sidebar from "@/components/Sidebar"
 import RightSidebar from "@/components/RightSidebar"
 import { Truck, Menu } from "lucide-react"
-import { ServersContext } from "../src/pages/context/ServersContext"
+import { ServersContext } from "../src/context/ServersContext"
 import Head from "next/head";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
