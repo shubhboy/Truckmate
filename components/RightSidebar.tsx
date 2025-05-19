@@ -1,6 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Shield, RefreshCw, Download, Terminal, LucideIcon } from "lucide-react"
 
 
 
@@ -18,18 +16,6 @@ export default function RightSidebar({
   gameTime?: string | null,
 }) {
 
-    // Action button component
-function ActionButton({ icon: Icon, label }: { icon: LucideIcon; label: string }) {
-  return (
-    <Button
-      variant="outline"
-      className="h-auto py-3 px-3 border-slate-700 bg-slate-800/50 hover:bg-slate-700/50 flex flex-col items-center justify-center space-y-1 w-full"
-    >
-      <Icon className="h-5 w-5 text-cyan-500" />
-      <span className="text-xs">{label}</span>
-    </Button>
-  )
-}
   return (
     <div className="grid gap-6">
       {/* System time */}
@@ -57,21 +43,6 @@ function ActionButton({ icon: Icon, label }: { icon: LucideIcon; label: string }
                 <div className="text-sm font-mono text-slate-200">{supportedVersions?.supported_ats_game_version}</div>
               </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Quick actions */}
-      <Card className="bg-slate-900/50 border-slate-700/50 backdrop-blur-sm">
-        <CardHeader className="pb-2">
-          <CardTitle className="text-slate-100 text-base">Quick Actions</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-3">
-            <ActionButton icon={Shield} label="Security Scan" />
-            <ActionButton icon={RefreshCw} label="Sync Data" />
-            <ActionButton icon={Download} label="Backup" />
-            <ActionButton icon={Terminal} label="Console" />
           </div>
         </CardContent>
       </Card>
