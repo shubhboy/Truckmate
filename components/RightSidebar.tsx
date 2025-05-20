@@ -45,7 +45,7 @@ export default function RightSidebar({
             </div>
           </div>
         </CardContent>
-      </Card>
+      </Card> 
     </div>
   )
 }
